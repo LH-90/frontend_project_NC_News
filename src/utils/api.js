@@ -9,7 +9,11 @@ export const getArticles = () => {
     .then((response) => {
         return response.data
     })
-    .catch((error) => {
-        console.log(error)
+}
+
+export const getArticleById = (article_id) => {
+    return ncNewsAPI.get(`/articles/${article_id}`)
+    .then((response) => {
+        return response.data
     })
 }

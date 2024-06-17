@@ -1,9 +1,8 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 import Header from './components/Header';
-import Articles from './components/Articles';
-
+import ArticlesList from './components/ArticlesList';
+import ArticlePage from './components/ArticlePage';
 
 
 
@@ -13,7 +12,8 @@ function App() {
     <div>
       <Header />
       <Routes>
-        <Route path="/" element ={<Articles />}/>
+        <Route path="/" element ={<ArticlesList />}/>
+        <Route path="/articles/:article_id" element ={<ArticlePage />}/>
       </Routes>
       
     </div>
