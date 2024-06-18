@@ -24,3 +24,11 @@ export const getComments = (article_id) => {
         return response.data
     })
 }
+
+export const patchArticle = (article_id, vote) => {
+    const updateVote = {inc_votes: vote}
+    return ncNewsAPI.patch(`/articles/${article_id}`, updateVote)
+    .then((response) => {
+        return response.data
+    })
+}

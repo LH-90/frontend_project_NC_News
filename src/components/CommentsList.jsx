@@ -26,6 +26,10 @@ const CommentsList = ({ article_id }) => {
       <p>Loading...</p>
     } 
 
+    if (error) {
+        <p>{error}</p>
+    }
+
     return (
         <CommentCard comments={comments}/>
     )

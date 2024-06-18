@@ -26,6 +26,10 @@ const ArticlesList = () => {
       <p>Loading...</p>
     }
 
+    if (error) {
+      <p>{error}</p>
+  }
+
     return(
       <ArticleCard articles={articles}/>
     )
