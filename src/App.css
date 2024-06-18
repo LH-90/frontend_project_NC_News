@@ -40,3 +40,13 @@ li {
 .article-item a {
   color: black
 }
+
+.comment-item {
+  padding: 1rem;
+  margin: 1rem;
+  border: 1px solid #ccc;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  width: 100%;
+}

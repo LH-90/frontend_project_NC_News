@@ -6,7 +6,7 @@ const ArticleCard = ({articles}) => {
           {articles.map((article) => (
             <li key={article.article_id} className="article-item">
                <p>{new Date(article.created_at).toLocaleString({ timeZone: 'GMT' })}</p>
-              <Link to={`/articles/${article.article_id}`}>
+              <Link to={`/articles/${article.article_id}?comment_count=${article.article_id}`}>
                <h2>{article.title}</h2>
               </Link> 
                <p>topic: {article.topic}</p>
