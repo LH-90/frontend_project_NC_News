@@ -12,7 +12,14 @@ export const getArticles = () => {
 }
 
 export const getArticleById = (article_id) => {
-    return ncNewsAPI.get(`/articles/${article_id}`)
+    return ncNewsAPI.get(`/articles/${article_id}?comment_count=${article_id}`)
+    .then((response) => {
+        return response.data
+    })
+}
+
+export const getComments = (article_id) => {
+    return ncNewsAPI.get(`/articles/${article_id}/comments`)
     .then((response) => {
         return response.data
     })

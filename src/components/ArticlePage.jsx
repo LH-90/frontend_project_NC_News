@@ -2,12 +2,14 @@ import { useState } from "react";
 import { getArticleById } from "../utils/api";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import CommentsList from "./CommentsList";
 
 const ArticlePage = () => {
     const { article_id } = useParams();
-    const [article, setArticle] = useState("");
-    const [error, setError] = useState("");
+    const [article, setArticle] = useState("")
+    const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(true)
+    const [showComments, setShowComments] = useState(false)
     
     useEffect(() => {
         setIsLoading(true)
@@ -22,7 +24,13 @@ const ArticlePage = () => {
           });
       }, [article_id]);
     
-
+    const handleCommentsClick = () => {
+        setShowComments(!showComments)
+      };
+    
+    if (isLoading) {
+      <p>Loading...</p>
+    } 
 
     return (
         <section>
@@ -32,6 +40,8 @@ const ArticlePage = () => {
                <p>author: {article.author}</p>
                <img src={article.article_img_url}></img>
                <p>votes: {article.votes}</p>
+               <button onClick={handleCommentsClick}>🗨 {article.comment_count}</button>
+               {showComments ? <CommentsList article_id={article_id} />: null}
         </section>
     )
 }
