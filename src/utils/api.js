@@ -32,3 +32,14 @@ export const patchArticle = (article_id, vote) => {
         return response.data
     })
 }
+
+export const postComment = (article_id, newComment) => {
+    const addComment = {username: "jessjelly", body: newComment}
+    return ncNewsAPI.post(`/articles/${article_id}/comments`, addComment)
+    .then((response) => {
+        return response.data
+    })
+    .catch((error) => {
+        console.log(error)
+    });
+}
