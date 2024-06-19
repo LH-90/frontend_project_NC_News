@@ -3,10 +3,8 @@ import CommentCard from "./CommentCard";
 import { useState, useEffect } from "react";
 
 
-const CommentsList = ({ article_id }) => {
+const CommentsList = ({ article_id, comments, setComments, error, setError}) => {
 
-    const [comments, setComments] = useState([]);
-    const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
@@ -20,7 +18,7 @@ const CommentsList = ({ article_id }) => {
             setIsLoading(false)
             setError("We can't fetch the comments, please try again later.");
           });
-      }, [article_id]);
+      }, [article_id, setComments, setError]);
     
     if (isLoading) {
       <p>Loading...</p>

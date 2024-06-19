@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CommentsList from "./CommentsList";
 import Votes from "./Votes";
+import CommentAdder from "./CommentAdder";
 
 const ArticlePage = () => {
   const { article_id } = useParams();
@@ -11,6 +12,8 @@ const ArticlePage = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [showCommentAdder, setShowCommentAdder] = useState(false);
 
 
 
@@ -31,6 +34,10 @@ const ArticlePage = () => {
     setShowComments(!showComments)
   }
 
+  const handleNewCommentClick = () => {
+    setShowCommentAdder(!showCommentAdder)
+  }
+
   if (isLoading) {
     return <p>Loading...</p>
   }
@@ -49,8 +56,10 @@ const ArticlePage = () => {
       <div className="votes-comments">
         <Votes article_id={article_id} article={article} setArticle={setArticle} error= {error} setError = {setError}/>
         <button onClick={handleCommentsClick}>🗨 {article.comment_count}</button>
+        <button onClick={handleNewCommentClick}>+ add a comment</button>
       </div>
-      {showComments ? <CommentsList article_id={article_id} /> : null}
+      {showCommentAdder ? <CommentAdder article_id={article_id} setComments={setComments} error={error} setError={setError}/> : null}
+      {showComments ? <CommentsList article_id={article_id} comments={comments} setComments={setComments} error={error} setError={setError}/> : null}
     </section>
   );
 };
