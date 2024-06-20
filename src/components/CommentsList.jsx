@@ -1,12 +1,15 @@
 import { getComments } from "../utils/api";
 import CommentCard from "./CommentCard";
 import { useEffect, useState } from "react";
+import CommentAdder from "./CommentAdder";
 
 
 const CommentsList = ({ article_id, comments, setComments, username, setArticle}) => {
 
    const [isLoading, setIsLoading] = useState(true)
    const [error, setError] = useState(null)
+   const [showCommentAdder, setShowCommentAdder] = useState(false);
+   const [actionMessage, setActionMessage] = useState("")
 
     useEffect(() => {
         setIsLoading(true)
@@ -29,10 +32,18 @@ const CommentsList = ({ article_id, comments, setComments, username, setArticle}
       if (error) {
         return error
       }
-    
+      const handleNewCommentClick = () => {
+        setShowCommentAdder(!showCommentAdder)
+        setActionMessage("")
+      }
 
     return (
-        <CommentCard comments={comments} username={username} setComments={setComments} setArticle={setArticle}/>
+      <section>
+        <button onClick={handleNewCommentClick}>+ add a comment</button>
+        {showCommentAdder ? <CommentAdder article_id={article_id} setComments={setComments} username={username} setArticle={setArticle} setActionMessage={setActionMessage} setShowCommentAdder={setShowCommentAdder} /> : null}
+        {actionMessage ? <p>{actionMessage}</p> : null}
+        <CommentCard comments={comments} username={username} setComments={setComments} setArticle={setArticle} setActionMessage={setActionMessage} />
+      </section>
     )
 
 }

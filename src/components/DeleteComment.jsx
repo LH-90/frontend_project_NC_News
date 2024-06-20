@@ -1,7 +1,7 @@
 import { deleteComment } from "../utils/api";
 import { useState } from "react";
 
-const DeleteComment = ({comment, comments, setComments, setArticle}) => {
+const DeleteComment = ({comment, comments, setComments, setArticle, setActionMessage}) => {
 
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
@@ -15,6 +15,7 @@ const DeleteComment = ({comment, comments, setComments, setArticle}) => {
   const handleCloseModal = () => {
     setShowModal(false);
     setCommentToDelete(null);
+    setError(null)
   };
 
   const handleConfirmDelete = () => {
@@ -28,6 +29,7 @@ const DeleteComment = ({comment, comments, setComments, setArticle}) => {
             comment_count: currentArticle.comment_count - 1,
           }));
           handleCloseModal();
+          setActionMessage("Your comment has been deleted.")
         })
         .catch((error) => {
           console.error(error);
@@ -45,16 +47,16 @@ const DeleteComment = ({comment, comments, setComments, setArticle}) => {
         <section>
             <button onClick={() => handleShowModal(comment.comment_id)}>delete</button>
             {showModal ? (
-                <div className="modal-background">
+              <div className="modal-background">
                   <div className="modal">
                       <p>Are you sure you want to delete this comment?</p>
                       <div className="button-container">
-              <button className="button-cancel" onClick={handleCloseModal}>Cancel</button>
-              <button className="button-delete" onClick={handleConfirmDelete}>Delete</button>
-            </div></div>
+                         <button className="button-cancel" onClick={handleCloseModal}>Cancel</button>
+                         <button className="button-delete" onClick={handleConfirmDelete}>Delete</button>
+                      </div>
+                  </div>
                 </div>
-              ): null}
-
+            ): null}
         </section>
     )
 }
