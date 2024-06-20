@@ -1,11 +1,12 @@
 import { getComments } from "../utils/api";
 import CommentCard from "./CommentCard";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
-const CommentsList = ({ article_id, comments, setComments, error, setError}) => {
+const CommentsList = ({ article_id, comments, setComments, username, setArticle}) => {
 
-    const [isLoading, setIsLoading] = useState(true)
+   const [isLoading, setIsLoading] = useState(true)
+   const [error, setError] = useState(null)
 
     useEffect(() => {
         setIsLoading(true)
@@ -13,24 +14,27 @@ const CommentsList = ({ article_id, comments, setComments, error, setError}) => 
           .then(({comments}) => {
             setComments(comments)
             setIsLoading(false)
+            setError(null)
           })
           .catch((error) => {
             setIsLoading(false)
             setError("We can't fetch the comments, please try again later.");
           });
-      }, [article_id, setComments, setError]);
-    
-    if (isLoading) {
-      <p>Loading...</p>
-    } 
+      }, [article_id]);
 
-    if (error) {
-        <p>{error}</p>
-    }
+      if (isLoading) {
+        return <p>Loading...</p>
+      }
+    
+      if (error) {
+        return error
+      }
+    
 
     return (
-        <CommentCard comments={comments}/>
+        <CommentCard comments={comments} username={username} setComments={setComments} setArticle={setArticle}/>
     )
+
 }
 
 export default CommentsList

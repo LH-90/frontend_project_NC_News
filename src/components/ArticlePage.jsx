@@ -7,15 +7,15 @@ import Votes from "./Votes";
 import CommentAdder from "./CommentAdder";
 
 const ArticlePage = () => {
+
   const { article_id } = useParams();
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [article, setArticle] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
   const [showCommentAdder, setShowCommentAdder] = useState(false);
-
-
+  const [username, setUsername] = useState("jessjelly")
 
   useEffect(() => {
     setIsLoading(true);
@@ -23,6 +23,7 @@ const ArticlePage = () => {
       .then(({ article }) => {
         setArticle(article)
         setIsLoading(false)
+        setError(null)
       })
       .catch((error) => {
         setIsLoading(false)
@@ -43,10 +44,11 @@ const ArticlePage = () => {
   }
 
   if (error) {
-   return <p>{error}</p>
+    return error
   }
 
   return (
+
     <section>
       <p>{new Date(article.created_at).toLocaleString({ timeZone: "GMT" })}</p>
       <h2>{article.title}</h2>
@@ -58,8 +60,8 @@ const ArticlePage = () => {
         <button onClick={handleCommentsClick}>🗨 {article.comment_count}</button>
         <button onClick={handleNewCommentClick}>+ add a comment</button>
       </div>
-      {showCommentAdder ? <CommentAdder article_id={article_id} setComments={setComments} error={error} setError={setError}/> : null}
-      {showComments ? <CommentsList article_id={article_id} comments={comments} setComments={setComments} error={error} setError={setError}/> : null}
+      {showCommentAdder ? <CommentAdder article_id={article_id} setComments={setComments} username={username} setArticle={setArticle} /> : null}
+      {showComments ? <CommentsList article_id={article_id} comments={comments} setComments={setComments} username={username} setArticle={setArticle}/> : null}
     </section>
   );
 };
