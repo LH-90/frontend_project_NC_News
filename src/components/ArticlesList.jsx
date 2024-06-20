@@ -4,10 +4,10 @@ import { useEffect } from "react";
 import ArticleCard from "./ArticleCard";
 
 const ArticlesList = () => {
-
-    const [articles, setArticles] = useState([])
-    const [error, setError] = useState(null)
+    
     const [isLoading, setIsLoading] = useState(true)
+    const [error, setError] = useState(null)
+    const [articles, setArticles] = useState([])
 
     useEffect(() => {
       setIsLoading(true)
@@ -15,23 +15,24 @@ const ArticlesList = () => {
       .then(({articles}) => {
         setArticles(articles)
         setIsLoading(false)
+        setError(null)
       })
       .catch((error) => {
         setIsLoading(false)
         setError("We can't fetch the articles, please try again later.")
       })
-    }, [])
+    }, [setIsLoading, setError])
 
     if (isLoading) {
-      <p>Loading...</p>
+      return <p>Loading...</p>
     }
-
+  
     if (error) {
-      <p>{error}</p>
-  }
-
-    return(
-      <ArticleCard articles={articles}/>
+      return error
+    }
+  
+    return (
+        <ArticleCard articles={articles} />
     )
 }
 

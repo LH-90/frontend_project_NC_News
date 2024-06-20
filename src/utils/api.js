@@ -33,13 +33,18 @@ export const patchArticle = (article_id, vote) => {
     })
 }
 
-export const postComment = (article_id, newComment) => {
-    const addComment = {username: "jessjelly", body: newComment}
+export const postComment = (article_id, newComment, username) => {
+    const addComment = {username: username, body: newComment}
     return ncNewsAPI.post(`/articles/${article_id}/comments`, addComment)
+    .then((response) => {
+        return response.data.comment
+    })
+}
+
+export const deleteComment = (comment_id) => {
+    console.log(comment_id)
+    return ncNewsAPI.delete(`/comments/${comment_id}`)
     .then((response) => {
         return response.data
     })
-    .catch((error) => {
-        console.log(error)
-    });
 }

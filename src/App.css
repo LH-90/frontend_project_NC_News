@@ -25,6 +25,8 @@ li {
   width: calc(100% - 2rem);
   box-sizing: border-box;
   text-align: left;
+  border-radius: 5px;
+  
 }
 
 @media (min-width: 480px) and (max-width: 767px) {
@@ -62,6 +64,7 @@ li {
   max-width: 100%;
   box-sizing: border-box;
   text-align: left;
+  border-radius: 5px;
 }
 
 .votes-comments {
@@ -91,4 +94,44 @@ li {
   border: 1px solid #ccc;
   box-sizing: border-box;
   text-align: left;
+  border-radius: 5px;
+}
+
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(152, 152, 152, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: white;
+  padding: 30px;
+  width: 350px;
+  max-width: 100%;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 5px; 
+  margin-top: 20px; 
+}
+
+.button-cancel {
+  background: #ccc;
+  border: none;
+}
+
+.button-delete {
+  background: #e74c3c;
+  color: white;
+  border: none;
 }
