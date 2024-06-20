@@ -1,39 +1,55 @@
 import { useState } from "react";
-import { getArticles } from "../utils/api";
+import { getArticles, getArticlesByTopic } from "../utils/api";
 import { useEffect } from "react";
 import ArticleCard from "./ArticleCard";
+import { useParams } from "react-router-dom";
 
 const ArticlesList = () => {
-    
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState(null)
-    const [articles, setArticles] = useState([])
+  
+  const { slug } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [articles, setArticles] = useState([]);
 
+  if (!slug) {
     useEffect(() => {
-      setIsLoading(true)
+      setIsLoading(true);
       getArticles()
-      .then(({articles}) => {
-        setArticles(articles)
-        setIsLoading(false)
-        setError(null)
-      })
-      .catch((error) => {
-        setIsLoading(false)
-        setError("We can't fetch the articles, please try again later.")
-      })
-    }, [setIsLoading, setError])
+        .then(({ articles }) => {
+          setArticles(articles);
+          setIsLoading(false);
+          setError(null);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          setError("We can't fetch the articles, please try again later.");
+        });
+    }, []);
+  } else {
+    useEffect(() => {
+      setIsLoading(true);
+      getArticlesByTopic(slug)
+        .then(({ articles }) => {
+          setArticles(articles);
+          setIsLoading(false);
+          setError(null);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          setError("We can't fetch the articles, please try again later.");
+        });
+    }, [slug]);
+  }
 
-    if (isLoading) {
-      return <p>Loading...</p>
-    }
-  
-    if (error) {
-      return error
-    }
-  
-    return (
-        <ArticleCard articles={articles} />
-    )
-}
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
-export default ArticlesList
+  if (error) {
+    return error;
+  }
+
+  return <ArticleCard articles={articles} />;
+};
+
+export default ArticlesList;
