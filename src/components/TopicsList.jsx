@@ -1,6 +1,6 @@
 import { getTopics } from "../utils/api";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 const TopicsList = () => {
   
@@ -29,11 +29,11 @@ const TopicsList = () => {
   return (
     <ul className="topics-list">
       <li className="topic-item">
-        <Link to="/">all</Link>
+        <Link to={"/"}>all</Link>
       </li>
       {topics.map((topic) => (
         <li key={topic.slug} className="topic-item">
-          <Link to={`${topic.slug}/articles`}>{topic.slug}</Link>
+          <Link to={`/?topic=${topic.slug}`}>{topic.slug}</Link>
         </li>
       ))}
     </ul>
