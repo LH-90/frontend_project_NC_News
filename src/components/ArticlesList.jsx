@@ -42,10 +42,10 @@ const ArticlesList = () => {
   }
 
   return (
-  <section>
-    {/* {isLoading ? <p>Loading...</p>: null} */}
-    <ArticleCard articles={articles} />
+  <section className="articles-list">
+    {isLoading ? <p>Loading...</p>: null}
     <SortByOrder sort_by={sort_by} order={order} setSortOrder={setSortOrder}/>
+    <ArticleCard articles={articles} />
 
   </section>
 
