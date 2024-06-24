@@ -9,7 +9,7 @@ Users can also add comments about an article.
 
 ## Getting started
 
-Once you've cloned the repo, run npm run dev and click on the link to see the website page.
+Once you've cloned the repo, run `npm run dev` and click on the link to see the website page.
 
 ## Technologies used
 
